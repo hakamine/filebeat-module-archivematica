@@ -1,5 +1,5 @@
 {
-  "description": "Pipeline for parsing archivematica storage-service logs",
+  "description": "Pipeline for parsing archivematica storage_service logs",
   "processors": [
     ],
   "on_failure" : [{

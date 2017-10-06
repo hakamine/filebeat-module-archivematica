@@ -1,0 +1,9 @@
+- key: archivematica
+  title: "archivematica"
+  description: >
+    archivematica Module
+  fields:
+    - name: archivematica
+      type: group
+      description: >
+      fields:

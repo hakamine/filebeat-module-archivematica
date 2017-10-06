@@ -1,0 +1,9 @@
+- name: storage-service
+  type: group
+  description: >
+    storage-service
+  fields:
+    - name: example
+      type: keyword
+      description: >
+        Example field

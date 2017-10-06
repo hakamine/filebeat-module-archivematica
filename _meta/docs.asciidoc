@@ -1,0 +1,3 @@
+== archivematica module
+
+This is the archivematica module.

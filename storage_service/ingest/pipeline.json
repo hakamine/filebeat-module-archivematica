@@ -46,7 +46,7 @@
   "on_failure": [
     {
       "set": {
-        "field": "error.message",
+        "field": "error",
         "value": "{{ _ingest.on_failure_message }}"
       }
     }

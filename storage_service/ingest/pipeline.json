@@ -1,0 +1,54 @@
+{
+  "description": "Pipeline for parsing archivematica storage_service logs",
+  "processors": [
+    {
+      "grok": {
+        "field": "message",
+        "ignore_missing": true,
+        "patterns": [
+          "^%{LOGLEVEL:archivematica.storage_service.loglevel}%{TABSORSPACES}%{AMLOGDATETIME:archivematica.storage_service.datetime}%{TABSORSPACES}%{TABSORSPACES}%{DATA:archivematica.storage_service.module1}:%{DATA:archivematica.storage_service.module2}:%{DATA:archivematica.storage_service.function}:%{NUMBER:archivematica.storage_service.linenumber}:%{GREEDYDATA:archivematica.storage_service.message}"
+        ],
+        "pattern_definitions": {
+          "AMLOGTIME": "%{HOUR}:%{MINUTE}:%{SECOND}",
+          "AMLOGDATE": "%{YEAR}-%{MONTHNUM}-%{MONTHDAY}",
+          "TABORSPACE": "\\s|\\t",
+          "TABSORSPACES": "%{TABORSPACE}*",
+          "AMLOGDATETIME": "%{AMLOGDATE} %{AMLOGTIME}"
+        }
+      }
+    },
+    {
+      "remove": {
+        "field": "message"
+      }
+    },
+    {
+      "rename": {
+        "field": "@timestamp",
+        "target_field": "read_timestamp"
+      }
+    },
+    {
+      "date": {
+        "field": "archivematica.storage_service.datetime",
+        "target_field": "@timestamp",
+        "formats": [
+          "YYYY-MM-dd H:m:s"
+        ]
+      }
+    },
+    {
+      "remove": {
+        "field": "archivematica.storage_service.datetime"
+      }
+    }
+  ],
+  "on_failure": [
+    {
+      "set": {
+        "field": "error",
+        "value": "{{ _ingest.on_failure_message }}"
+      }
+    }
+  ]
+}

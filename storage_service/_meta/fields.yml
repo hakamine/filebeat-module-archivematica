@@ -1,7 +1,7 @@
-- name: storage-service
+- name: storage_service
   type: group
   description: >
-    storage-service
+    storage_service
   fields:
     - name: example
       type: keyword
